@@ -1,0 +1,204 @@
+# GitHub Repository Documentation - Express Book Reviews
+
+## Repository Information
+- **Forked Repository**: https://github.com/isholaolatunde/expressBookReviews
+- **Original Repository**: ibm-developer-skills-network/expressBookReviews  
+- **Fork Status**: This repository is forked from IBM Developer Skills Network
+
+## API Testing with cURL Commands
+
+### 1. Test Book List Endpoint
+**cURL Command:**
+```bash
+curl http://localhost:5000/
+```
+
+**Expected Output:**
+```json
+{
+    "1": {
+        "author": "Chinua Achebe",
+        "title": "Things Fall Apart",
+        "reviews": {}
+    },
+    "2": {
+        "author": "Hans Christian Andersen",
+        "title": "Fairy tales",
+        "reviews": {}
+    },
+    "3": {
+        "author": "Dante Alighieri",
+        "title": "The Divine Comedy",
+        "reviews": {}
+    },
+    "4": {
+        "author": "Unknown",
+        "title": "The Epic Of Gilgamesh",
+        "reviews": {}
+    },
+    "5": {
+        "author": "Unknown",
+        "title": "The Book Of Job",
+        "reviews": {}
+    },
+    "6": {
+        "author": "Unknown",
+        "title": "One Thousand and One Nights",
+        "reviews": {}
+    },
+    "7": {
+        "author": "Unknown",
+        "title": "Njál's Saga",
+        "reviews": {}
+    },
+    "8": {
+        "author": "Jane Austen",
+        "title": "Pride and Prejudice",
+        "reviews": {}
+    },
+    "9": {
+        "author": "Honoré de Balzac",
+        "title": "Le Père Goriot",
+        "reviews": {}
+    },
+    "10": {
+        "author": "Samuel Beckett",
+        "title": "Molloy, Malone Dies, The Unnamable, the trilogy",
+        "reviews": {}
+    }
+}
+```
+
+### 2. Test Book by ISBN Endpoint
+**cURL Command:**
+```bash
+curl http://localhost:5000/isbn/1
+```
+
+**Expected Output:**
+```json
+{
+    "author": "Chinua Achebe",
+    "title": "Things Fall Apart",
+    "reviews": {}
+}
+```
+
+### 3. Test User Registration Endpoint
+**cURL Command:**
+```bash
+curl -X POST "http://localhost:5000/register" -H "Content-Type: application/json" -d "{\"username\":\"testuser\",\"password\":\"testpass123\"}"
+```
+
+**Expected Output:**
+```json
+{
+    "message": "User registered successfully"
+}
+```
+
+### 4. Test User Login Endpoint
+**cURL Command:**
+```bash
+curl -X POST "http://localhost:5000/customer/login" -H "Content-Type: application/json" -d "{\"username\":\"testuser\",\"password\":\"testpass123\"}"
+```
+
+**Expected Output:**
+```json
+{
+    "message": "User successfully logged in"
+}
+```
+
+**Note:** This endpoint authenticates a registered user and creates a JWT session. The user must first be registered using the registration endpoint before they can log in.
+
+### 5. Test Books by Author Endpoint
+**cURL Command:**
+```bash
+curl "http://localhost:5000/author/Jane%20Austen"
+```
+
+**Expected Output:**
+```json
+{
+    "8": {
+        "author": "Jane Austen",
+        "title": "Pride and Prejudice",
+        "reviews": {}
+    }
+}
+```
+
+### 6. Test Books by Title Endpoint
+**cURL Command:**
+```bash
+curl "http://localhost:5000/title/Pride%20and%20Prejudice"
+```
+
+**Expected Output:**
+```json
+{
+    "8": {
+        "author": "Jane Austen",
+        "title": "Pride and Prejudice",
+        "reviews": {}
+    }
+}
+```
+
+### 7. Test Book Reviews Endpoint
+**cURL Command:**
+```bash
+curl http://localhost:5000/review/1
+```
+
+**Expected Output:**
+```json
+{}
+```
+
+**Note:** The reviews object is currently empty as no reviews have been added yet. This endpoint retrieves all reviews for the specified book by ISBN.
+
+### 8. Test Add/Modify Book Review Endpoint (Authenticated)
+**cURL Command:**
+```bash
+curl -X PUT "http://localhost:5000/customer/auth/review/1" -H "Content-Type: application/json" -H "Cookie: session_cookie_here" -d "{\"review\":\"This is an excellent book about African culture and colonialism. Highly recommended!\"}"
+```
+
+**Expected Output:**
+```json
+{
+    "message": "Review added/updated successfully"
+}
+```
+
+**Note:** This endpoint requires user authentication (login session). The user must be logged in first. After adding a review, you can verify it was added by calling the book reviews endpoint again.
+
+### 9. Test Delete Book Review Endpoint (Authenticated)
+**cURL Command:**
+```bash
+curl -X DELETE "http://localhost:5000/customer/auth/review/1" -H "Cookie: session_cookie_here"
+```
+
+**Expected Output:**
+```json
+{
+    "message": "Review deleted successfully"
+}
+```
+
+**Note:** This endpoint allows authenticated users to delete only their own reviews. The user must be logged in and have an existing review for the specified book. Other users' reviews remain unaffected.
+
+## Implementation Features
+- ✅ User registration with validation
+- ✅ User login with JWT authentication  
+- ✅ Book listing with async-await pattern
+- ✅ Book search by ISBN with Promise callbacks
+- ✅ Book search by author with async operations
+- ✅ Book search by title with error handling
+- ✅ Book reviews endpoint
+- ✅ Axios integration for HTTP requests
+- ✅ Comprehensive error handling
+
+## Repository Status
+This repository demonstrates the complete implementation of an Express.js Book Reviews API as part of the IBM Developer Skills Network course. All endpoints have been successfully implemented with modern async-await patterns and proper error handling.
